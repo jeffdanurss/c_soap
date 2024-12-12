@@ -34,31 +34,53 @@ First, clone the `c_soap` repository:
 ```bash
 git clone https://github.com/jeffdanurss/c_soap.git
 cd c_soap
-2. Create a Dockerfile
+```
+## 2. Create a Dockerfile
 Create a Dockerfile in the root directory of the repository with the following content:
 
 dockerfile
 Copiar código
-# Base image
-FROM gcc:latest
+```bash
+# Consulte https://aka.ms/customizecontainer para aprender a personalizar su contenedor de depuración y cómo Visual Studio usa este Dockerfile para compilar sus imágenes para una depuración más rápida.
 
-# Set working directory
+# Esta fase se usa cuando se ejecuta desde VS en modo rápido (valor predeterminado para la configuración de depuración)
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
 
-# Copy source code into the container
+
+# Esta fase se usa para compilar el proyecto de servicio
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["soap.csproj", "."]
+RUN dotnet restore "./soap.csproj"
 COPY . .
+WORKDIR "/src/."
+RUN dotnet build "./soap.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Compile the application
-RUN make
+# Esta fase se usa para publicar el proyecto de servicio que se copiará en la fase final.
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./soap.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Command to run by default
-CMD ["./c_soap"]
-3. Build the Docker Image
+# Esta fase se usa en producción o cuando se ejecuta desde VS en modo normal (valor predeterminado cuando no se usa la configuración de depuración)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "soap.dll"]
+```
+
+## 3. Build the Docker Image
 Build the image with this command:
 
 bash
 Copiar código
+```
 docker build -t c_soap .
+```
 4. Run the Container
 After building the image, run the container:
 

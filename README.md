@@ -1,25 +1,37 @@
-🚀 Dockerization and Deployment of c_soap
-This repository contains the steps to Dockerize the c_soap application and instructions on how to push changes to GitHub.
+# 🚀 Dockerization and Deployment of c_soap
 
-📜 Contents
-🔧 Prerequisites
-🐳 Dockerization
-🔗 Pushing Changes to GitHub
-🛠️ Running the Application
-🔧 Prerequisites
+This repository contains the steps to **Dockerize the c_soap application** and instructions on how to push changes to GitHub.
+
+---
+
+## 📜 Contents
+
+1. [🔧 Prerequisites](#-prerequisites)  
+2. [🐳 Dockerization](#-dockerization)  
+3. [🔗 Pushing Changes to GitHub](#-pushing-changes-to-github)  
+4. [🛠️ Running the Application](#-running-the-application)  
+
+---
+
+## 🔧 Prerequisites
+
 Before starting, ensure you have the following tools installed on your system:
 
-Docker (to build and run containers)
-Git (for version control)
-Access to your GitHub repository.
-🐳 Dockerization
+- **Docker** (to build and run containers)  
+- **Git** (for version control)  
+- Access to your GitHub repository.
+
+---
+
+## 🐳 Dockerization
+
 Dockerization involves creating a containerized image to run the application.
 
-1. Clone the Repository
-First, clone the c_soap repository:
+### 1. Clone the Repository
 
-bash
-Copiar código
+First, clone the `c_soap` repository:
+
+```bash
 git clone https://github.com/jeffdanurss/c_soap.git
 cd c_soap
 2. Create a Dockerfile
@@ -84,6 +96,3 @@ docker run -it --rm -p <LOCAL_PORT>:<CONTAINER_PORT> c_soap
 🛑 Important Notes
 Common Errors:
 Ensure you have the proper permissions in your environment to run Docker.
-
-Optimizing the Dockerfile:
-You can optimize the build process by removing unnecessary layers or using lighter base images.

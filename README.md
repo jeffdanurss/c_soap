@@ -112,4 +112,5 @@ docker run -it --rm -p <LOCAL_PORT>:<CONTAINER_PORT> c_soap
 ```
 ##🛑 Important Notes
 Common Errors:
+
 Ensure you have the proper permissions in your environment to run Docker.

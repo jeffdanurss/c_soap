@@ -39,7 +39,7 @@ cd c_soap
 Create a Dockerfile in the root directory of the repository with the following content:
 
 dockerfile
-Copiar código
+
 ```bash
 # Consulte https://aka.ms/customizecontainer para aprender a personalizar su contenedor de depuración y cómo Visual Studio usa este Dockerfile para compilar sus imágenes para una depuración más rápida.
 
@@ -79,42 +79,37 @@ Build the image with this command:
 bash
 Copiar código
 ```
-docker build -t c_soap .
+docker build -t jeffdanurss/c_soap .
 ```
-4. Run the Container
+##4. Run the Container
 After building the image, run the container:
-
-bash
-Copiar código
+```
 docker run -it --rm c_soap
-🔗 Pushing Changes to GitHub
+```
+##🔗 Pushing Changes to GitHub
 If you make changes to the application or the Dockerfile, you can push them to GitHub using the following steps:
 
 1. Configure Your Repository
 Ensure your remote repository is configured:
-
-bash
-Copiar código
+```
 git remote add origin https://github.com/jeffdanurss/c_soap.git
+```
 2. Commit Your Changes
 Stage and commit your changes:
-
-bash
-Copiar código
+```
 git add .
 git commit -m "Dockerization of the application and Dockerfile configuration"
+```
 3. Push Changes
 Push the changes to the remote repository:
-
-bash
-Copiar código
+```
 git push origin main
-🛠️ Running the Application
+```
+##🛠️ Running the Application
 Once Dockerized, you can run the application using Docker as shown earlier. If you need to expose ports or pass environment variables, you can do so with the following docker run command:
-
-bash
-Copiar código
+```
 docker run -it --rm -p <LOCAL_PORT>:<CONTAINER_PORT> c_soap
-🛑 Important Notes
+```
+##🛑 Important Notes
 Common Errors:
 Ensure you have the proper permissions in your environment to run Docker.
